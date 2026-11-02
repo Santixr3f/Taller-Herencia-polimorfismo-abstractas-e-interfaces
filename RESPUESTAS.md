@@ -132,13 +132,11 @@ System.out.println(a.valorSeguro());
 
 **Predicción (antes de ejecutar):**
 
-| Línea | Predicción | Razón |
-|---|---|---|
-| `v.describir()` | `AAA11A (20 kg), moto de 100 cc` | Polimorfismo: aunque `v` sea de tipo `Vehiculo`, se ejecuta el `describir()` de `Moto`. |
-| `v.costoEnvio(10)` | `12000.0` | 10 × `tarifaPorKm()` de Moto (1200). |
-| `v instanceof Asegurable` | `true` | El objeto real es una `Moto`, que implementa `Asegurable`. |
-| `v instanceof Camion` | `false` | Es una `Moto`, no un `Camion` (compila porque `Camion` es subclase de `Vehiculo`). |
-| `a.valorSeguro()` | `100000.0` | 50 metros × 2000. |
+1. `v.describir()` → `AAA11A (20 kg), moto de 100 cc`. Polimorfismo: aunque `v` sea de tipo `Vehiculo`, se ejecuta el `describir()` de `Moto`.
+2. `v.costoEnvio(10)` → `12000.0`. Es 10 × `tarifaPorKm()` de Moto (1200).
+3. `v instanceof Asegurable` → `true`. El objeto real es una `Moto`, que implementa `Asegurable`.
+4. `v instanceof Camion` → `false`. Es una `Moto`, no un `Camion` (compila porque `Camion` es subclase de `Vehiculo`).
+5. `a.valorSeguro()` → `100000.0`. Son 50 metros × 2000.
 
 **Comprobación (salida real):**
 
@@ -179,9 +177,10 @@ Porque una bodega **no es un vehículo**: no tiene placa, ni capacidad en kg, ni
 
 La **Programación Orientada a Objetos** es una forma de construir programas modelando el problema como un conjunto de **objetos** que tienen datos (atributos) y comportamientos (métodos) y que colaboran entre sí. En lugar de escribir un solo flujo de instrucciones, se definen clases que representan cosas del problema (vehículos, flotas, bodegas) y se organizan con relaciones entre ellas, lo que facilita reutilizar, mantener y ampliar el código.
 
-| Pilar | Ejemplo en el taller |
-|---|---|
-| **Abstracción** | `Vehiculo` (clase abstracta) y la interfaz `Asegurable` capturan solo lo esencial ("un vehículo tiene placa, capacidad y tarifa por km"; "algo asegurable tiene un valor de seguro") y dejan los detalles a las subclases. `tarifaPorKm()` declara _qué_ se necesita sin decir _cómo_. |
-| **Encapsulamiento** | En todas las clases los atributos son `private` (`placa`, `capacidadKg`, `cilindraje`, `ejes`, `vehiculos`…) y se accede con métodos públicos como `getPlaca()` o `agregar()`. `Flota` protege su lista: nadie puede modificarla sin pasar por `agregar()`, que evita nulos y repetidos. |
-| **Herencia** | `Moto`, `Camion` y `Bicicleta` heredan de `Vehiculo` (`extends`), reutilizando `placa`, `capacidadKg`, `getPlaca()` y `costoEnvio()`; cada una agrega lo propio (`cilindraje`, `ejes`). |
-| **Polimorfismo** | En `Flota.mostrar()`, un único `for-each` sobre `Vehiculo` llama a `describir()` y cada objeto responde a su manera (moto, camión o bicicleta). Lo mismo ocurre con `costoEnvio()`, que usa la `tarifaPorKm()` de cada subclase, y con `ArrayList<Asegurable>`, donde `Camion` y `Bodega` responden distinto a `valorSeguro()`. |
+**Abstracción:** `Vehiculo` (clase abstracta) y la interfaz `Asegurable` capturan solo lo esencial ("un vehículo tiene placa, capacidad y tarifa por km"; "algo asegurable tiene un valor de seguro") y dejan los detalles a las subclases. `tarifaPorKm()` declara _qué_ se necesita sin decir _cómo_.
+
+**Encapsulamiento:** en todas las clases los atributos son `private` (`placa`, `capacidadKg`, `cilindraje`, `ejes`, `vehiculos`…) y se accede con métodos públicos como `getPlaca()` o `agregar()`. `Flota` protege su lista: nadie puede modificarla sin pasar por `agregar()`, que evita nulos y repetidos.
+
+**Herencia:** `Moto`, `Camion` y `Bicicleta` heredan de `Vehiculo` (`extends`), reutilizando `placa`, `capacidadKg`, `getPlaca()` y `costoEnvio()`; cada una agrega lo propio (`cilindraje`, `ejes`).
+
+**Polimorfismo:** en `Flota.mostrar()`, un único `for-each` sobre `Vehiculo` llama a `describir()` y cada objeto responde a su manera (moto, camión o bicicleta). Lo mismo ocurre con `costoEnvio()`, que usa la `tarifaPorKm()` de cada subclase, y con `ArrayList<Asegurable>`, donde `Camion` y `Bodega` responden distinto a `valorSeguro()`.
